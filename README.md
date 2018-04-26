@@ -1,5 +1,5 @@
 # statusscreen
-Webpage for monitoring the following activities:
+Webpage in node.js  for monitoring the following activities:
 - Google calendar (upcomming events)
 - Västtrafik (next buss)
 - Flickr (picture of the day)
