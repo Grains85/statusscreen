@@ -74,12 +74,9 @@ padding-right: 10px;
 background: white;
 }
 
-.ongoing {
-    position: relative;
-    width: 50%;
-    height: 50%;
-    overflow: hidden !important;
-    float: left;
+.nest_back {
+    height: 500px;
+    width: 900px;
     margin: 20 20 20 20;
 }
 .leftRight {

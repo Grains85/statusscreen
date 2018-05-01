@@ -10,11 +10,13 @@ function getTimeoutInSeconds(timeoutInSeconds) {
     return timeoutInSeconds * 1000 - currentMillis % (timeoutInSeconds * 1000);
 }
 
+
 function setTimeoutInSeconds(functionName, timeoutInSeconds, offset) {
     var timeout = getTimeoutInSeconds(timeoutInSeconds);
     timeout += Math.max(offset == 0 ? timeoutInSeconds * 8 : offset, 200);
     setTimeout(functionName, timeout);
 }
+
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -53,10 +55,20 @@ document.addEventListener('DOMContentLoaded', function() {
 */
     // startClock();
 
+
+
+/**
     function reloadPage() {
         document.location.reload(true);
     }
 
     // Update page from source every 15 minutes
     setTimeoutInSeconds(reloadPage, 15 * 60, 30000);
+    */
+    function reloadFlickr() {
+        document.getElementById('flickr').contentWindow.location.reload();
+    }
+
+    // Update page from source every 15 minutes
+    setTimeoutInSeconds(reloadFlickr, 15*60, 30000);
 });
