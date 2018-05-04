@@ -1,3 +1,4 @@
 node_modules/
 extra/google_credentials.json
 www/config/config.json
+.DS_Store
