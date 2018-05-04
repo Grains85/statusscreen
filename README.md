@@ -16,7 +16,7 @@ SD-Card format: Disk Utility (alt. https://www.sdcard.org/downloads/formatter_4/
 
 ## Set up node
 curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -  
-sudo apt install nodejs
+sudo apt install nodejs  
 
 ## Fix Screen resolution and rotation
 ```
@@ -31,6 +31,6 @@ sudo -i npm install forever -g
 sudo nano /home/pi/foreverStartup.sh
 ```
 Insert  
-> #!/bin/bash
-> cd /home/pi/git/statusscreen
-> forever start webserver.js >>/home/pi/output.log 2>>/home/pi/error.log
+> #!/bin/bash  
+> cd /home/pi/git/statusscreen  
+> forever start webserver.js >>/home/pi/output.log 2>>/home/pi/error.log  
