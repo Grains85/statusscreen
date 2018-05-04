@@ -107,6 +107,9 @@ io.on('connection', function(socket){
   socket.on('flickrRefresh', function(msg){
     flickr.getImage(setFlickrPage);
   });
+  socket.on('calendarRefresh', function(msg){
+    calendar.getEvents(setCalendarPage);
+  });
 });
 
 
