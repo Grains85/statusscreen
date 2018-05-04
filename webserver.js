@@ -1,24 +1,32 @@
 var port = 9800;
-var serverUrl = "127.0.0.1";
+//var serverUrl = "127.0.0.1";
 
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-var http = require("http");
+//var http = require("http");
 var path = require("path");
 var fs = require("fs");
 var url = require('url');
 var checkMimeType = false;
 var calendar = require('./node/calendar');
 var flickr = require('./node/flickr');
+
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
 const sortMap = require('sort-map')
 
-console.log("Starting web server at " + serverUrl + ":" + port);
+//console.log("Starting web server at " + serverUrl + ":" + port);
 
-var calPage = "";
-var flickrPage = "";
+//var calPage = "";
+//var flickrPage = "";
+
 
 function setFlickrPage(content) {
-  content += "<img src="+content+">";
-  flickrPage = content;
+  content = "<img src="+content+">";
+  //content = getHtmlPage(content);
+  io.emit('flickr', content);
+  //flickrPage = content;
 }
 
 function setCalendarPage(content) {
@@ -65,11 +73,45 @@ function setCalendarPage(content) {
       }
     }
     result += "</table>";
-    calPage = result;
+    //calPage = result;
+    //result = getHtmlPage(result);
+    io.emit('calendar', result);
     //console.log("Setting calendar content: " + calPage);
 }
 
-http.createServer(function(req, res) {
+app.get('*', function(req, res){
+  var request = req;
+  var filename = req.url;
+  //console.log("====================");
+  //console.log(filename);
+  if (filename == '/') {
+      filename = "/index.html";
+  }
+  sendFile(filename, res);
+  //res.sendFile(__dirname + '/www/index.html');
+});
+
+/**
+io.on('connection', function(socket){
+  //socket.on('chat message', function(msg){
+    io.emit('chat message', "Node server!");
+  //});
+});
+*/
+
+http.listen(port, function(){
+  console.log('listening on *:'+port);
+});
+
+io.on('connection', function(socket){
+  socket.on('flickrRefresh', function(msg){
+    flickr.getImage(setFlickrPage);
+  });
+});
+
+
+/**
+  http.createServer(function(req, res) {
     var request = req;
     var filename = req.url;
     //console.log("====================");
@@ -80,6 +122,7 @@ http.createServer(function(req, res) {
     sendFile(filename, res);
 
 }).listen(port, serverUrl);
+*/
 
 function getMimeType(filename) {
     var ext = path.extname(filename);
@@ -124,15 +167,17 @@ function getFile(localPath, res, mimeType) {
 
             if (localPath.includes("flickr.html")) {
               flickr.getImage(setFlickrPage);
-              var flickrContent = getHtmlPage(flickrPage);
-              res.setHeader("Content-Length", flickrContent.length);
-              res.end(flickrContent);
+              //var flickrContent = getHtmlPage(flickrPage);
+              //res.setHeader("Content-Length", flickrContent.length);
+              //res.end(flickrContent);
+              res.end();
             }
             else if (localPath.includes("calendar.html")) {
                 calendar.getEvents(setCalendarPage);
-                var calContent = getHtmlPage(calPage);
-                res.setHeader("Content-Length", calContent.length);
-                res.end(calContent);
+                //var calContent = getHtmlPage(calPage);
+                //res.setHeader("Content-Length", calContent.length);
+                //res.end(calContent);
+                res.end();
             } else {
                 res.setHeader("Content-Length", contents.length);
                 res.end(contents);
@@ -142,17 +187,17 @@ function getFile(localPath, res, mimeType) {
             res.end();
         }
     });
+}
 
-    function getHtmlPage(text) {
-        var html = '<html><head>';
-        html += '<meta charset="UTF-8">';
-        html += '<title></title>';
-        html += '<link rel="stylesheet" type="text/css" href="css/index.css"/>';
-        html += '</head>';
-        html += '<body>';
-        html += text;
-        html += '</body>';
-        html += '</html>';
-        return html;
-    }
+function getHtmlPage(text) {
+    var html = '<html><head>';
+    html += '<meta charset="UTF-8">';
+    html += '<title></title>';
+    html += '<link rel="stylesheet" type="text/css" href="css/index.css"/>';
+    html += '</head>';
+    html += '<body>';
+    html += text;
+    html += '</body>';
+    html += '</html>';
+    return html;
 }

@@ -1,3 +1,4 @@
+/**
 function getTimeoutInSeconds(timeoutInSeconds) {
     var now = new Date();
     var hours = now.getHours();
@@ -16,7 +17,7 @@ function setTimeoutInSeconds(functionName, timeoutInSeconds, offset) {
     timeout += Math.max(offset == 0 ? timeoutInSeconds * 8 : offset, 200);
     setTimeout(functionName, timeout);
 }
-
+*/
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -65,10 +66,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update page from source every 15 minutes
     setTimeoutInSeconds(reloadPage, 15 * 60, 30000);
     */
+    /**
     function reloadFlickr() {
         document.getElementById('flickr').contentWindow.location.reload();
     }
 
     // Update page from source every 15 minutes
     setTimeoutInSeconds(reloadFlickr, 15*60, 30000);
+    */
 });

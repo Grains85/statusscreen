@@ -25,23 +25,23 @@ const TOKEN_PATH = 'extra/google_credentials.json';
 
 //var moment = require('moment-timezone');
 
-var result = "";
-var inited = false;
+//var result = "";
+//var inited = false;
 
 var config;
 
 // Load client secrets from a local file.
 module.exports = {
   getEvents: function(callback) {
-    if (result != "") {
-      callback(result);
-      return;
-    }
+  //  if (result != "") {
+//      callback(result);
+//      return;
+//    }
     // Kör bara en gång
-    if (inited) {
-      return;
-    }
-    inited = true;
+  //  if (inited) {
+  //    return;
+  //  }
+    //inited = true;
     fs.readFile('www/config/config.json', (err, content) => {
       if (err)
         return console.log('Error loading client secret file:', err);
@@ -142,7 +142,7 @@ function listAllEvents(auth, callback) {
 
     var calendars = data.items;
     // console.log("Numer of calendars: "+calendars.length);
-    result = "";
+    var result = "";
     for (i = 0; i < calendars.length; i++) {
       var calendar = calendars[i];
       var summary = calendar.summary;
@@ -198,6 +198,7 @@ function listAllEvents(auth, callback) {
             //console.log(dateString + ";" + event.summary);
             result += dateString + ";" + event.summary + "\n";
           });
+          callback(result);
         }
       });
     }
