@@ -25,7 +25,27 @@ sudo nano /boot/config.txt
 	display_rotate=1 90 degrees
 ```
 
-## Autostart Node
+## Autostart
+```
+sudo pico .config/lxsession/LXDE-pi/autostart
+```
+Replace  
+@xscreensaver -no-splash
+With  
+#@xscreensaver -no-splash
+Add  
+> @/home/pi/foreverStartup.sh
+>
+> # Normal website that does not need any exceptions
+> @/usr/bin/chromium-browser --incognito --start-maximized --kiosk http://127.0.0$
+> # Enable mixed http/https content, remember if invalid certs were allowed (ie s$
+> #@/usr/bin/chromium-browser --incognito --start-maximized --kiosk --allow-runni$
+> @unclutter
+> @xset s off
+> @xset s noblank
+> @xset -dpms
+
+Add autostartscript for Node  
 ```
 sudo -i npm install forever -g
 sudo nano /home/pi/foreverStartup.sh

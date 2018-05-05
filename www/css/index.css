@@ -27,12 +27,13 @@ body::-webkit-scrollbar {
     line-height: 20px;
     padding-left: 5px;
     padding-right: 5px;
-    vertical-align: top;
+    margin-top: 30px;
 }
 
 .te_columnHeaders {
     text-shadow: none;
-    color: #555;
+    /*color: #555;*/
+    color: white;
     text-transform: uppercase;
     font-family: 'Open Sans Condensed',sans-serif;
     letter-spacing: .0357em;
@@ -75,15 +76,20 @@ background: white;
 }
 
 .nest_back {
-    height: 500px;
-    width: 900px;
+    height: 400px;
+    width: 710px;
     margin: 20 20 20 20;
+}
+
+.flickr img {
+  margin: 0 20 20 20;
+  max-height: 450px;
 }
 
 .bussRow{
     display: table;
-    width: 100%; /*Optional*/
-    table-layout: fixed; /*Optional*/
+    /*width: 100%;*/
+    table-layout: fixed;
 }
 .bussLine {
     display: table-cell;
@@ -111,4 +117,19 @@ background: white;
     height: 20px;
     color: white;
     font-size: 30px;
+}
+.timeDiv {
+  color: white;
+  background-color:rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  margin-top: 20px;
+  margin-right: 20px;
+  float: left;
+  min-height: 360px;
+}
+.clock {
+  font-size: 50px;
+}
+.day {
+  font-size: 30px;
 }
