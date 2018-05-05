@@ -30,8 +30,8 @@ function runVasttrafik() {
   var timeSpan = config.vasttrafik.parameters.timeSpan;
   var maxDeparturesPerLine = config.vasttrafik.parameters.maxDeparturesPerLine;
   var vasttrafikUrl = 'https://api.vasttrafik.se/bin/rest.exe/v2/departureBoard?id=' + station + '&date=' + newDate.today() + '&time=' + newDate.timeNow() + '&timeSpan=' + timeSpan + '&maxDeparturesPerLine=' + maxDeparturesPerLine;
-  console.log(vasttrafikUrl);
-debugger;
+  //console.log(vasttrafikUrl);
+
   //var reload = function () {
   var req = new XMLHttpRequest();
   req.onreadystatechange = function() {
@@ -61,6 +61,8 @@ debugger;
         //}
       }
       document.getElementById('vasttrafik').innerHTML = txt;
+
+      setTimeout(runVasttrafik, 60*1000);
       //alert(txt);
     }
   };

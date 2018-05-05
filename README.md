@@ -18,6 +18,16 @@ SD-Card format: Disk Utility (alt. https://www.sdcard.org/downloads/formatter_4/
 curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -  
 sudo apt install nodejs  
 
+## Set up git
+```
+git clone git@github.com:Grains85/statusscreen.git
+```
+
+## Add dependencies
+```
+npm install express flickrapi googleapis mkdirp socket.io sort-map xmlhttprequest --save
+```
+
 ## Fix Screen resolution and rotation
 ```
 sudo raspi-config
