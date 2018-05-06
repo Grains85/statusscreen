@@ -41,6 +41,7 @@ module.exports = {
                     authenticated: true,
                     min_taken_date: start.getTime() / 1000,
                     max_taken_date: end.getTime() / 1000,
+                    extras: 'date_taken',
                     per_page: 100
                 }, function(err, result) {
                     if (err) {
@@ -59,14 +60,14 @@ module.exports = {
                         //  }
                         var url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + "_z.jpg";
                         //console.log("First: " + url);
-                        callback(url);
-                        debugger;
+                        
+                        callback(url, photo.datetaken);
+                        //debugger;
                     } else {
                         console.log("No photos found...");
                     }
                 });
             });
-
         });
     }
 };

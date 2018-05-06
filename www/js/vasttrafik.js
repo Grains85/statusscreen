@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
   initVasttrafik(true);
+
+  setInterval(runVasttrafik, 60*1000);
 });
+
 
 var vasttrafikToken = "";
 var config = "";
@@ -62,7 +65,7 @@ function runVasttrafik() {
       }
       document.getElementById('vasttrafik').innerHTML = txt;
 
-      setTimeout(runVasttrafik, 60*1000);
+      //setTimeout(runVasttrafik, 60*1000);
       //alert(txt);
     }
   };

@@ -81,9 +81,22 @@ background: white;
     margin: 20 20 20 20;
 }
 
-.flickr img {
+.flickr {
   margin: 0 20 20 20;
+
+  position: relative;
+  color: white;
+}
+
+.flickr img {
   max-height: 450px;
+}
+
+.date_taken {
+  position: absolute;
+  bottom: 20px;
+  right: 16px;
+  font-size: 20px;
 }
 
 .bussRow{
@@ -93,7 +106,7 @@ background: white;
 }
 .bussLine {
     display: table-cell;
-    background: blue;
+    background-color:rgba(65,105,225, 1);
     padding: 10px;
     width: 50px;
     height: 20px;
@@ -102,7 +115,7 @@ background: white;
 }
 .bussName {
     display: table-cell;
-    background: black;
+    background-color:rgba(0, 0, 0, 0.8);
     padding: 10px;
     width: 550px;
     height: 20px;
@@ -111,7 +124,7 @@ background: white;
 }
 .bussTime {
     display: table-cell;
-    background: black;
+    background-color:rgba(0, 0, 0, 0.8);
     padding: 10px;
     width: 80px;
     height: 20px;

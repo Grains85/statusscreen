@@ -22,8 +22,8 @@ const sortMap = require('sort-map')
 //var flickrPage = "";
 
 
-function setFlickrPage(content) {
-  content = "<img src="+content+">";
+function setFlickrPage(content, date_taken) {
+  content = "<img id='flickrImg' src='"+content+"' alt='"+date_taken+"'>";
   //content = getHtmlPage(content);
   io.emit('flickr', content);
   //flickrPage = content;
