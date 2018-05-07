@@ -20,13 +20,37 @@ const sortMap = require('sort-map')
 
 //var calPage = "";
 //var flickrPage = "";
+var flickrYears = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017];
+var dynamicFlickrYears = flickrYears.slice(); // copy
+var flickrRetryCount = 1;
 
+function setFlickrPage(contentOrDate, date_taken) {
 
-function setFlickrPage(content, date_taken) {
-  content = "<img id='flickrImg' src='"+content+"' alt='"+date_taken+"'>";
-  //content = getHtmlPage(content);
-  io.emit('flickr', content);
-  //flickrPage = content;
+  // If failed
+  if(contentOrDate instanceof Date){
+
+    if(flickrRetryCount != 0){ // Iterrate dates
+      flickrRetryCount--;
+      var date = getFlickrDate();
+      flickr.getImage(setFlickrPage, date);
+    }
+    else{ // One last search
+      flickr.getImage(setFlickrPage, undefined);
+
+      // Restore retry values
+      dynamicFlickrYears = flickrYears.slice();
+      flickrRetryCount = 8;
+    }
+  }
+  else{ // OK
+    var content = contentOrDate;
+    content = "<img id='flickrImg' src='"+content+"' alt='"+date_taken+"'>";
+    io.emit('flickr', content);
+
+    // Restore retry values
+    dynamicFlickrYears = flickrYears.slice();
+    flickrRetryCount = 8;
+  }
 }
 
 function setCalendarPage(content) {
@@ -88,44 +112,20 @@ app.get('*', function(req, res){
       filename = "/index.html";
   }
   sendFile(filename, res);
-  //res.sendFile(__dirname + '/www/index.html');
 });
-
-/**
-io.on('connection', function(socket){
-  //socket.on('chat message', function(msg){
-    io.emit('chat message', "Node server!");
-  //});
-});
-*/
 
 http.listen(port, function(){
-  console.log('listening on *:'+port);
+  console.log('listening on *: '+port);
 });
 
 io.on('connection', function(socket){
   socket.on('flickrRefresh', function(msg){
-    flickr.getImage(setFlickrPage);
+    flickr.getImage(setFlickrPage, getFlickrDate());
   });
   socket.on('calendarRefresh', function(msg){
     calendar.getEvents(setCalendarPage);
   });
 });
-
-
-/**
-  http.createServer(function(req, res) {
-    var request = req;
-    var filename = req.url;
-    //console.log("====================");
-    //console.log(filename);
-    if (filename == '/') {
-        filename = "/index.html";
-    }
-    sendFile(filename, res);
-
-}).listen(port, serverUrl);
-*/
 
 function getMimeType(filename) {
     var ext = path.extname(filename);
@@ -168,23 +168,8 @@ function getFile(localPath, res, mimeType) {
             }
             res.statusCode = 200;
 
-            if (localPath.includes("flickr.html")) {
-              flickr.getImage(setFlickrPage);
-              //var flickrContent = getHtmlPage(flickrPage);
-              //res.setHeader("Content-Length", flickrContent.length);
-              //res.end(flickrContent);
-              res.end();
-            }
-            else if (localPath.includes("calendar.html")) {
-                calendar.getEvents(setCalendarPage);
-                //var calContent = getHtmlPage(calPage);
-                //res.setHeader("Content-Length", calContent.length);
-                //res.end(calContent);
-                res.end();
-            } else {
-                res.setHeader("Content-Length", contents.length);
-                res.end(contents);
-            }
+            res.setHeader("Content-Length", contents.length);
+            res.end(contents);
         } else {
             res.writeHead(500);
             res.end();
@@ -192,6 +177,7 @@ function getFile(localPath, res, mimeType) {
     });
 }
 
+/**
 function getHtmlPage(text) {
     var html = '<html><head>';
     html += '<meta charset="UTF-8">';
@@ -203,4 +189,24 @@ function getHtmlPage(text) {
     html += '</body>';
     html += '</html>';
     return html;
+}
+*/
+
+function getFlickrDate(){
+  var randomIndex = Math.floor(Math.random() * dynamicFlickrYears.length);
+  var randomYear = dynamicFlickrYears[randomIndex];
+  var date = new Date();
+  date.setHours(0);
+  date.setMinutes(0);
+  date.setSeconds(0);
+  date.setMilliseconds(0);
+
+  //date.setFullYear(date.getFullYear() + yearOffset);
+  date.setFullYear(randomYear);
+
+  // Remove year just taken
+  dynamicFlickrYears.splice(randomIndex, 1);
+
+  //console.log("getFlickrDate: "+date);
+  return date;
 }

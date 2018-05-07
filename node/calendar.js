@@ -23,25 +23,11 @@ const OAuth2Client = google.auth.OAuth2;
 const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 const TOKEN_PATH = 'extra/google_credentials.json';
 
-//var moment = require('moment-timezone');
-
-//var result = "";
-//var inited = false;
-
 var config;
 
 // Load client secrets from a local file.
 module.exports = {
   getEvents: function(callback) {
-  //  if (result != "") {
-//      callback(result);
-//      return;
-//    }
-    // Kör bara en gång
-  //  if (inited) {
-  //    return;
-  //  }
-    //inited = true;
     fs.readFile('www/config/config.json', (err, content) => {
       if (err)
         return console.log('Error loading client secret file:', err);
@@ -198,6 +184,8 @@ function listAllEvents(auth, callback) {
             //console.log(dateString + ";" + event.summary);
             result += dateString + ";" + event.summary + "\n";
           });
+
+          // TODO: Improve: Needs to be runned when call is finished. Relace with emit?
           callback(result);
         }
       });

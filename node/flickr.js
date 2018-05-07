@@ -3,7 +3,7 @@ const fs = require('fs');
 var Flickr = require("flickrapi");
 
 module.exports = {
-    getImage: function(callback) {
+    getImage: function(callback, date) {
 
         fs.readFile('www/config/config.json', (err, settings) => {
             if (err) return console.log('Error loading client secret file:', err);
@@ -17,21 +17,18 @@ module.exports = {
                 }
                 //console.log("Flickr set up!!!! ");
 
-                var start = new Date();
-                start.setHours(0);
-                start.setMinutes(0);
-                start.setSeconds(0);
-                start.setMilliseconds(0);
-                start.setFullYear(start.getFullYear() - 1);
-
-                var end = new Date();
-                end.setHours(0);
-                end.setMinutes(0);
-                end.setSeconds(0);
-                end.setMilliseconds(0);
-                end.setFullYear(end.getFullYear() - 1);
-                end.setDate(end.getDate() + 7);
-
+                var start;
+                var end;
+                // Date not given: Default: One year back
+                if(!date){
+                  start = getDate(-1,0);
+                  end = getDate(-1,7);
+                }
+                else{
+                  start = date;
+                  end = new Date(date.getTime());
+                  end.setDate(end.getDate() + 1);
+                }
                 //console.log("Start: " + start);
                 //console.log("End: " + end);
 
@@ -60,14 +57,26 @@ module.exports = {
                         //  }
                         var url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + "_z.jpg";
                         //console.log("First: " + url);
-                        
+
                         callback(url, photo.datetaken);
                         //debugger;
                     } else {
-                        console.log("No photos found...");
+                        console.log("Flickr: No photos found..."+date.getFullYear());
+                        callback(date,undefined);
                     }
                 });
             });
         });
     }
 };
+
+function getDate(yearOffset, dayOffset){
+  var date = new Date();
+  date.setHours(0);
+  date.setMinutes(0);
+  date.setSeconds(0);
+  date.setMilliseconds(0);
+  date.setFullYear(date.getFullYear() + yearOffset);
+  date.setDate(date.getDate() + dayOffset);
+  return date;
+}

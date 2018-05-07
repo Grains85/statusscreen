@@ -1,4 +1,4 @@
-setInterval(reload, 60*30*1000);
+setInterval(reloadCalendar, 60*30*1000);
 
 var socket = io();
 socket.on('calendar', function(msg){
@@ -6,6 +6,10 @@ socket.on('calendar', function(msg){
     //setTimeout(reload, 60*60*1000);
 });
 
-function reload(){
+function reloadCalendar(){
   socket.emit('calendarRefresh', '');
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    reloadCalendar();
+});

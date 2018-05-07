@@ -90,6 +90,7 @@ background: white;
 
 .flickr img {
   max-height: 450px;
+  max-width: 400px;
 }
 
 .date_taken {

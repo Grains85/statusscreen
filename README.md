@@ -35,6 +35,10 @@ sudo nano /boot/config.txt
 	display_rotate=1 90 degrees
 ```
 
+## Disable screen at night
+
+https://gist.github.com/simlun/1b27b14d707abbba8fc1
+
 ## Autostart
 ```
 sudo pico .config/lxsession/LXDE-pi/autostart
