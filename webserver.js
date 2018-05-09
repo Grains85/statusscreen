@@ -9,6 +9,7 @@ var url = require('url');
 var checkMimeType = false;
 var calendar = require('./node/calendar');
 var flickr = require('./node/flickr');
+var yr = require('./node/yr');
 
 var app = require('express')();
 var http = require('http').Server(app);
@@ -23,6 +24,10 @@ const sortMap = require('sort-map')
 var flickrYears = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017];
 var dynamicFlickrYears = flickrYears.slice(); // copy
 var flickrRetryCount = 1;
+
+function setWeatherPage(content) {
+  io.emit('weather', content);
+}
 
 function setFlickrPage(contentOrDate, date_taken) {
 
@@ -119,11 +124,16 @@ http.listen(port, function(){
 });
 
 io.on('connection', function(socket){
+  socket.on('calendarRefresh', function(msg){
+    console.log("Calendar refresh!!!!");
+    calendar.getEvents(setCalendarPage);
+  });
   socket.on('flickrRefresh', function(msg){
+    //console.log("Flickr refresh!!!!");
     flickr.getImage(setFlickrPage, getFlickrDate());
   });
-  socket.on('calendarRefresh', function(msg){
-    calendar.getEvents(setCalendarPage);
+  socket.on('weatherRefresh', function(msg){
+    yr.getWeather(setWeatherPage);
   });
 });
 

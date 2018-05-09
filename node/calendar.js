@@ -127,7 +127,7 @@ function listAllEvents(auth, callback) {
     }
 
     var calendars = data.items;
-    // console.log("Numer of calendars: "+calendars.length);
+    console.log("Numer of calendars: "+calendars.length);
     var result = "";
     for (i = 0; i < calendars.length; i++) {
       var calendar = calendars[i];

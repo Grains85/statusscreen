@@ -6,7 +6,7 @@ module.exports = {
     getImage: function(callback, date) {
 
         fs.readFile('www/config/config.json', (err, settings) => {
-            if (err) return console.log('Error loading client secret file:', err);
+            if (err) return console.log('Flickr: Error loading config file:', err);
 
             var flickrOptions = JSON.parse(settings).flickr;
 

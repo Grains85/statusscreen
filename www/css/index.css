@@ -88,6 +88,7 @@ body::-webkit-scrollbar {
   padding-top: 5px;
   padding-left: 10px;
   padding-right: 10px;
+  vertical-align: top;
 }
 
 .te_content {
@@ -145,4 +146,12 @@ body::-webkit-scrollbar {
     height: 20px;
     color: white;
     font-size: 30px;
+}
+.weather {
+  color: white;
+  background-color:rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  margin: 20 20 20 20;
+  float: left;
+  font-size: 50px;
 }

@@ -1,5 +1,3 @@
-setInterval(reloadFlickr, 30*60*1000);
-
 var socket = io();
 
 socket.on('flickr', function(msg){
@@ -16,4 +14,5 @@ function reloadFlickr(){
 
 document.addEventListener('DOMContentLoaded', function() {
     reloadFlickr();
+    setInterval(reloadFlickr, 30*60*1000);
 });
