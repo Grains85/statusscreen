@@ -10,6 +10,7 @@ var checkMimeType = false;
 var calendar = require('./node/calendar');
 var flickr = require('./node/flickr');
 var yr = require('./node/yr');
+var evernote = require('./node/evernote');
 
 var app = require('express')();
 var http = require('http').Server(app);
@@ -27,6 +28,10 @@ var flickrRetryCount = 1;
 
 function setWeatherPage(content) {
   io.emit('weather', content);
+}
+
+function setNotePage(content) {
+  io.emit('evernote', content);
 }
 
 function setFlickrPage(contentOrDate, date_taken) {
@@ -129,11 +134,15 @@ io.on('connection', function(socket){
     flickr.getImage(setFlickrPage, getFlickrDate());
   });
   socket.on('calendarRefresh1', function(msg){
-    console.log("Calendar refresh!!!!");
+    //console.log("Calendar refresh!!!!");
     calendar.getEvents(setCalendarPage);
   });
   socket.on('weatherRefresh', function(msg){
     yr.getWeather(setWeatherPage);
+  });
+  socket.on('evernoteRefresh', function(msg){
+    console.log("Evernote refresh!!!!");
+    evernote.getNotes(setNotePage);
   });
 });
 

@@ -9,6 +9,7 @@
   "author": "Johan Stigert",
   "license": "ISC",
   "dependencies": {
+    "evernote": "^2.0.5",
     "express": "^4.16.3",
     "flickrapi": "^0.6.0",
     "googleapis": "^27.0.0",

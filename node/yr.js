@@ -11,11 +11,11 @@ module.exports = {
     getWeather: function(callback) {
         fs.readFile('www/config/config.json', (err, allText) => {
             if (err) return console.log('Yr: Error loading config file:', err);
-            console.log("allText: ", allText);
+            //console.log("allText: ", allText);
             var config = JSON.parse(allText);
 
             var yrUrl = config.yr.url;
-            console.log("yrUrl: ", yrUrl);
+            //console.log("yrUrl: ", yrUrl);
 
             var request = require('request');
             request.get(yrUrl, function(err, response, body) {
@@ -28,7 +28,7 @@ module.exports = {
                   var times = json.weatherdata.forecast.tabular.time;
                   var temp = times[0].temperature.value;
 
-                  console.log("YR: ", temp);
+                  //console.log("YR: ", temp);
                   callback(temp);
                 }
             });

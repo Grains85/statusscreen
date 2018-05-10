@@ -32,10 +32,12 @@ body::-webkit-scrollbar {
 .timeDiv {
   color: white;
   background-color:rgba(0, 0, 0, 0.5);
-  padding: 20px;
-  margin: 20 20 20 20;
+  padding: 20px 0px 20px 90px;
+  margin: 20px;
   float: left;
   min-height: 360px;
+  width: 100%;
+  height: 100%;
 }
 .clock {
   font-size: 50px;
@@ -118,7 +120,12 @@ body::-webkit-scrollbar {
 
 .bussRow{
     display: table;
-    table-layout: fixed;
+    atable-layout: fixed;
+
+    width: 100%;
+    margin-left: 20px;
+    amargin-right: 50px;
+
 }
 .bussLine {
     display: table-cell;
@@ -133,7 +140,7 @@ body::-webkit-scrollbar {
     display: table-cell;
     background-color:rgba(0, 0, 0, 0.8);
     padding: 10px;
-    width: 100%;
+    awidth: 860px;
     height: 20px;
     color: white;
     font-size: 30px;

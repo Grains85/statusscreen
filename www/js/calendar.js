@@ -6,7 +6,7 @@ socket.on('calendar', function(msg){
 });
 
 function reloadCalendar(){
-  alert("reloadCalendar!");
+  //alert("reloadCalendar!");
   socket.emit('calendarRefresh1', '');
 }
 

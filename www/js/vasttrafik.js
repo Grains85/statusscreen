@@ -49,7 +49,7 @@ function runVasttrafik() {
       var departures = xmlDoc.childNodes[0].getElementsByTagName("Departure");
       for (i = 0; i < departures.length; i++) {
         var departure = departures[i];
-        txt += '<div class=row>';
+        txt += '<div class=bussRow>';
         txt += '<div class=bussLine>' + departure.getAttribute('sname') + '</div>';
         txt += '<div class=bussName>' + departure.getAttribute('direction') + '</div>';
         //           if (departure.getAttribute('rtTime')) {
