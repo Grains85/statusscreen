@@ -25,7 +25,7 @@ git clone git@github.com:Grains85/statusscreen.git
 
 ## Add dependencies
 ```
-npm install express flickrapi googleapis mkdirp socket.io sort-map xmlhttprequest --save
+npm install express flickrapi googleapis mkdirp socket.io sort-map xmlhttprequest xml2json --save
 ```
 
 ## Fix Screen resolution and rotation

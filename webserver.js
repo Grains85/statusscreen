@@ -124,13 +124,13 @@ http.listen(port, function(){
 });
 
 io.on('connection', function(socket){
-  socket.on('calendarRefresh', function(msg){
-    console.log("Calendar refresh!!!!");
-    calendar.getEvents(setCalendarPage);
-  });
   socket.on('flickrRefresh', function(msg){
     //console.log("Flickr refresh!!!!");
     flickr.getImage(setFlickrPage, getFlickrDate());
+  });
+  socket.on('calendarRefresh1', function(msg){
+    console.log("Calendar refresh!!!!");
+    calendar.getEvents(setCalendarPage);
   });
   socket.on('weatherRefresh', function(msg){
     yr.getWeather(setWeatherPage);
