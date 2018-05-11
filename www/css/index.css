@@ -24,20 +24,25 @@ body::-webkit-scrollbar {
 }
 
 .nest_back {
-    height: 400px;
+    min-height: 400px;
+    height: 100%;
     width: 710px;
-    margin: 20 20 20 20;
+    amargin: 20 20 20 20;
 }
 
 .timeDiv {
   color: white;
   background-color:rgba(0, 0, 0, 0.5);
-  padding: 20px 0px 20px 90px;
-  margin: 20px;
-  float: left;
-  min-height: 360px;
-  width: 100%;
+  amin-height: 360px;
+  width: 90%;
   height: 100%;
+  padding: 20px;
+  amargin-left: 20px;
+}
+.centerDiv {
+    margin: auto;
+    width: 80%;
+    apadding: 10px;
 }
 .clock {
   font-size: 50px;
@@ -100,15 +105,15 @@ body::-webkit-scrollbar {
 }
 
 .flickr {
-  margin: 0 20 20 20;
+  amargin: 0 20 20 20;
 
   position: relative;
   color: white;
 }
 
 .flickr img {
-  max-height: 450px;
-  max-width: 400px;
+  amax-height: 450px;
+  amax-width: 400px;
 }
 
 .date_taken {
@@ -121,11 +126,9 @@ body::-webkit-scrollbar {
 .bussRow{
     display: table;
     atable-layout: fixed;
-
     width: 100%;
-    margin-left: 20px;
+    amargin-left: 20px;
     amargin-right: 50px;
-
 }
 .bussLine {
     display: table-cell;
@@ -156,9 +159,9 @@ body::-webkit-scrollbar {
 }
 .weather {
   color: white;
-  background-color:rgba(0, 0, 0, 0.5);
-  padding: 20px;
-  margin: 20 20 20 20;
-  float: left;
-  font-size: 50px;
+  abackground-color:rgba(0, 0, 0, 0.5);
+  apadding: 20px;
+  amargin: 20 20 20 20;
+  afloat: left;
+  font-size: 30px;
 }

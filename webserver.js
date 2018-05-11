@@ -18,13 +18,15 @@ var io = require('socket.io')(http);
 
 const sortMap = require('sort-map')
 
+var session = require('express-session');
+
 //console.log("Starting web server at " + serverUrl + ":" + port);
 
 //var calPage = "";
 //var flickrPage = "";
 var flickrYears = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017];
 var dynamicFlickrYears = flickrYears.slice(); // copy
-var flickrRetryCount = 1;
+var flickrRetryCount = 8;
 
 function setWeatherPage(content) {
   io.emit('weather', content);
@@ -39,7 +41,7 @@ function setFlickrPage(contentOrDate, date_taken) {
   // If failed
   if(contentOrDate instanceof Date){
 
-    if(flickrRetryCount != 0){ // Iterrate dates
+    if(flickrRetryCount > 0){ // Iterrate dates
       flickrRetryCount--;
       var date = getFlickrDate();
       flickr.getImage(setFlickrPage, date);
@@ -113,6 +115,12 @@ function setCalendarPage(content) {
     //console.log("Setting calendar content: " + calPage);
 }
 
+app.use(session({
+    secret: 'keyboard cat',
+    cookie: { maxAge: 60000 },
+    resave: true,
+    saveUninitialized: true
+  }));
 app.get('*', function(req, res){
   var request = req;
   var filename = req.url;
@@ -121,8 +129,45 @@ app.get('*', function(req, res){
   if (filename == '/') {
       filename = "/index.html";
   }
+  //if(filename.indexOf("evernote.js") > -1){
+  //  initEvernote(req,res);
+//    return;
+//  }
   sendFile(filename, res);
 });
+/**
+app.get('evernote_oauth_callback', function(req, res){
+  var client = new Evernote.Client({
+  consumerKey: 'grains',
+  consumerSecret: 'a76f0b58fcb27d43',
+  sandbox: true,
+  china: false,
+});
+
+client.getAccessToken(req.session.oauthToken,
+  req.session.oauthTokenSecret,
+  req.query.oauth_verifier,
+function(error, oauthToken, oauthTokenSecret, results) {
+  if (error) {
+    console.log("Error: Evernote: getRequestToken(): "+error.statusCode);
+    return;
+  } else {
+    // oauthAccessToken is the token you need;
+    var authenticatedClient = new Evernote.Client({
+      token: oauthToken,
+      sandbox: true,
+      china: false,
+    });
+    console.log("ALMOST!!");
+
+    var noteStore = authenticatedClient.getNoteStore();
+    noteStore.listNotebooks().then(function(notebooks) {
+      console.log(notebooks); // the user's notebooks!
+    });
+  }
+});
+});
+*/
 
 http.listen(port, function(){
   console.log('listening on *: '+port);
@@ -140,10 +185,12 @@ io.on('connection', function(socket){
   socket.on('weatherRefresh', function(msg){
     yr.getWeather(setWeatherPage);
   });
+  /**
   socket.on('evernoteRefresh', function(msg){
     console.log("Evernote refresh!!!!");
-    evernote.getNotes(setNotePage);
+    //evernote.getNotes(setNotePage);
   });
+  */
 });
 
 function getMimeType(filename) {
@@ -229,3 +276,35 @@ function getFlickrDate(){
   //console.log("getFlickrDate: "+date);
   return date;
 }
+
+
+
+// initialize OAuth
+/**
+var Evernote = require('evernote');
+
+
+var client = new Evernote.Client({
+  consumerKey: 'grains',
+  consumerSecret: 'a76f0b58fcb27d43',
+  sandbox: true, // change to false when you are ready to switch to production
+  china: false, // change to true if you wish to connect to YXBJ - most of you won't
+});
+
+
+function initEvernote(req, res){
+
+var callbackUrl = "http://localhost:9800/evernote_oauth_callback"; // your endpoint
+
+client.getRequestToken(callbackUrl, function(error, oauthToken, oauthTokenSecret) {
+  if (error) {
+    console.log("Error: Evernote: getRequestToken(): "+error.statusCode);
+    return;
+  }
+  // store your token here somewhere - for this example we use req.session
+  req.session.oauthToken = oauthToken;
+  req.session.oauthTokenSecret = oauthTokenSecret;
+  res.redirect(client.getAuthorizeUrl(oauthToken)); // send the user to Evernote
+});
+}
+*/

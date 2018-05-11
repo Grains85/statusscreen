@@ -27,18 +27,26 @@
 
 	<!--<div class="left" id="left">-->
 
-	<table cellspacing="0">
+	<table cellspacing="0" style="width:100%;padding: 20px;">
 		<tr>
 			<td valign="top">
 				<iframe class="nest_back" type="text/html" src="http://video.nest.com/embedded/live/XFGM4rXdfh?autoplay=1"></iframe>
 			</td>
 			<td class="timeDiv">
+				<div class="centerDiv">
 				<div class="clock" id="clock"></div>
 				<div class="day" id="day"></div>
-				<div class="day" id="year"></div>
+				<div class="day" id="year"></div><div id="weather" class="weather"></div>
 
 				<div id="calendar"></div>
+			</div>
 			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div id="vasttrafik"></div>
+			</td>
+
 		</tr>
 		<tr>
 			<td colspan="2">
@@ -50,9 +58,6 @@
 							</div>
 						</td>
 						<td valign="top">
-							<div class="weather">
-							Temperatur
-							<div id="weather"></div>
 
 							<div id="evernote"></div>
 
@@ -61,11 +66,7 @@
 					</tr>
 				</table>
 			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<div id="vasttrafik"></div>
-			</td>
+
 		</tr>
 	</table>
 
