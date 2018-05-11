@@ -18,7 +18,7 @@ var io = require('socket.io')(http);
 
 const sortMap = require('sort-map')
 
-var session = require('express-session');
+//var session = require('express-session');
 
 //console.log("Starting web server at " + serverUrl + ":" + port);
 
@@ -115,12 +115,14 @@ function setCalendarPage(content) {
     //console.log("Setting calendar content: " + calPage);
 }
 
+/**
 app.use(session({
     secret: 'keyboard cat',
     cookie: { maxAge: 60000 },
     resave: true,
     saveUninitialized: true
   }));
+  */
 app.get('*', function(req, res){
   var request = req;
   var filename = req.url;
