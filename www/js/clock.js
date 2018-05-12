@@ -40,7 +40,7 @@ function startTime() {
     second = fixZero(second);
     document.getElementById('clock').innerHTML = hour + ":" + minute + ":" + second;
     document.getElementById('day').innerHTML = day+", "+today.getUTCDate() +" " + monthStr;
-    document.getElementById('year').innerHTML = year;
+    document.getElementById('year').innerHTML = year + ", ";
 
     setTimeout(startTime, 500);
 }

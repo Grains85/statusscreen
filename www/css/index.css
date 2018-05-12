@@ -27,6 +27,7 @@ body::-webkit-scrollbar {
     min-height: 400px;
     height: 100%;
     width: 710px;
+    margin-right: 10px;
     amargin: 20 20 20 20;
 }
 
@@ -36,7 +37,7 @@ body::-webkit-scrollbar {
   amin-height: 360px;
   width: 90%;
   height: 100%;
-  padding: 20px;
+  apadding: 20px;
   amargin-left: 20px;
 }
 .centerDiv {
@@ -49,8 +50,17 @@ body::-webkit-scrollbar {
 }
 .day {
   font-size: 30px;
+  display:inline-block;
 }
-
+.weather {
+  color: white;
+  abackground-color:rgba(0, 0, 0, 0.5);
+  apadding: 20px;
+  amargin: 20 20 20 20;
+  afloat: left;
+  font-size: 30px;
+  display:inline-block;
+}
 .te_table {
     line-height: 20px;
     padding-left: 5px;
@@ -109,6 +119,7 @@ body::-webkit-scrollbar {
 
   position: relative;
   color: white;
+  margin-top: 10px;
 }
 
 .flickr img {
@@ -122,7 +133,9 @@ body::-webkit-scrollbar {
   right: 16px;
   font-size: 20px;
 }
-
+.vasttrafik{
+  margin-top: 10px;
+}
 .bussRow{
     display: table;
     atable-layout: fixed;
@@ -156,12 +169,4 @@ body::-webkit-scrollbar {
     height: 20px;
     color: white;
     font-size: 30px;
-}
-.weather {
-  color: white;
-  abackground-color:rgba(0, 0, 0, 0.5);
-  apadding: 20px;
-  amargin: 20 20 20 20;
-  afloat: left;
-  font-size: 30px;
 }
