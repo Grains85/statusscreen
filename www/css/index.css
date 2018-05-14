@@ -38,10 +38,14 @@ body::-webkit-scrollbar {
   width: 90%;
   height: 100%;
   apadding: 20px;
-  amargin-left: 20px;
+  margin-top: 20px;
 }
 .centerDiv {
+
+  vertical-align: top;
     margin: auto;
+    margin-top: 20px;
+    margin-bottom: 30px;
     width: 80%;
     apadding: 10px;
 }
