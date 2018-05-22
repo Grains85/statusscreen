@@ -19,6 +19,10 @@ var io = require('socket.io')(http);
 const sortMap = require('sort-map')
 
 //var session = require('express-session');
+// create an instance of the rpio-gpio-buttons object with pins 11 and 13
+var buttons = require('rpi-gpio-buttons')([13]);
+
+
 
 //console.log("Starting web server at " + serverUrl + ":" + port);
 
@@ -27,6 +31,11 @@ const sortMap = require('sort-map')
 var flickrYears = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017];
 var dynamicFlickrYears = flickrYears.slice(); // copy
 var flickrRetryCount = 8;
+
+// bind to the clicked event and check for the assigned pins when clicked
+buttons.on('clicked', function (pin) {
+  io.emit('buttonClicked', "");
+});
 
 function setWeatherPage(content) {
   io.emit('weather', content);
