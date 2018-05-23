@@ -1,17 +1,20 @@
 var socket = io();
-var video = document.getElementById("myVideo");
 
 socket.on('buttonClicked', function(msg){
-    document.getElementById("overlay").style.display = "block";
-    video.play();
-    setTimeout(stop, 60*1000);
+    play();
 });
 
+function play(){
+  document.getElementById("overlay").style.display = "block";
+  document.getElementById("babblarna").play();
+  setTimeout(stop, 60*1000);
+}
+
 function stop(){
-  video.pause();
+  document.getElementById("babblarna").pause();
   document.getElementById("overlay").style.display = "none";
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-
+  play();
 });
