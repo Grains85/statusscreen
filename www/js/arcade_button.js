@@ -5,8 +5,8 @@ socket.on('buttonClicked', function(msg){
 });
 
 function play(){
-  document.getElementById("overlay").style.display = "block";
   document.getElementById("babblarna").play();
+  document.getElementById("overlay").style.display = "block";
   setTimeout(stop, 60*1000);
 }
 
@@ -16,5 +16,6 @@ function stop(){
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById("babblarna").loop = true;
   play();
 });
