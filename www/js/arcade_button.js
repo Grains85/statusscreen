@@ -17,5 +17,5 @@ function stop(){
 
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("babblarna").loop = true;
-  play();
+  //play();
 });
