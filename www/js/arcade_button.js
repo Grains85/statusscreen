@@ -5,9 +5,12 @@ socket.on('buttonClicked', function(msg){
 });
 
 function play(){
-  document.getElementById("babblarna").play();
-  document.getElementById("overlay").style.display = "block";
-  setTimeout(stop, 60*1000);
+  var vid = document.getElementById("babblarna")
+  if(vid.currentTime == 0 || vid.paused){
+    vid.play();
+    document.getElementById("overlay").style.display = "block";
+    setTimeout(stop, 60*1000);
+  }
 }
 
 function stop(){
