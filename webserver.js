@@ -18,6 +18,7 @@ var io = require('socket.io')(http);
 
 const sortMap = require('sort-map')
 
+
 // Set mode to indexes
 var gpio = require("rpi-gpio");
 gpio.setMode(gpio.MODE_BCM);
@@ -30,6 +31,8 @@ var buttons = require('rpi-gpio-buttons')([13]);
 buttons.on('clicked', function (pin) {
   io.emit('buttonClicked', pin);
 });
+
+
 
 //console.log("Starting web server at " + serverUrl + ":" + port);
 

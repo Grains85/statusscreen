@@ -15,7 +15,9 @@ function play(){
     setStatus("Playing video! (second: "+currentdate.getSeconds()+")");
   }
   else{
-    setStatus("Not playing video: Pause="+vid.paused);
+    //setStatus("Not playing video: Pause="+vid.paused);
+    document.location.reload(true);
+    setStatus("Video playing: Reload page");
   }
 }
 
@@ -36,5 +38,17 @@ function hideStatus(){
 
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("babblarna").loop = true;
+
+  var vid = document.getElementById("myVideo");
+  vid.onerror = function() {
+    alert("Error: Video onerror triggered!");
+  };
+  vid.onstalled = function() {
+    alert("Error: Video onstalled triggered!");
+  };
+  vid.onsuspend = function() {
+    alert("Error: Video onsuspend triggered!");
+  };
+
   //play();
 });
