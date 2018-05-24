@@ -26,7 +26,10 @@ gpio.setMode(gpio.MODE_BCM);
 // create an instance of the rpio-gpio-buttons object with pins 11 and 13
 var buttons = require('rpi-gpio-buttons')([13]);
 
-
+// bind to the clicked event and check for the assigned pins when clicked
+buttons.on('clicked', function (pin) {
+  io.emit('buttonClicked', pin);
+});
 
 //console.log("Starting web server at " + serverUrl + ":" + port);
 
@@ -35,11 +38,6 @@ var buttons = require('rpi-gpio-buttons')([13]);
 var flickrYears = [2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017];
 var dynamicFlickrYears = flickrYears.slice(); // copy
 var flickrRetryCount = 8;
-
-// bind to the clicked event and check for the assigned pins when clicked
-buttons.on('clicked', function (pin) {
-  io.emit('buttonClicked', pin);
-});
 
 function setWeatherPage(content) {
   io.emit('weather', content);
