@@ -20,21 +20,21 @@ const sortMap = require('sort-map')
 
 const sensor = require('ds18b20-raspi');
 
-const indoorTempId = '28-0416a46a2aff';
-const outdoorTempId = '28-0517a195f0ff';
+const outdoorTempId = '28-0416a46a2aff';
+const indoorTempId = '28-0517a195f0ff';
 
 // Set mode to indexes
 var gpio = require("rpi-gpio");
 gpio.setMode(gpio.MODE_BCM);
-gpio.setup(13, gpio.DIR_IN);
+gpio.setup(27, gpio.DIR_IN);
 
-
-//var session = require('express-session');
-// create an instance of the rpio-gpio-buttons object with pins 11 and 13
-var buttons = require('rpi-gpio-buttons')([13]);
+var buttons = require('rpi-gpio-buttons')([13]); // PIN
 
 // bind to the clicked event and check for the assigned pins when clicked
 buttons.on('clicked', function (pin) {
+  io.emit('buttonClicked', pin);
+});
+buttons.on('pressed', function (pin) {
   io.emit('buttonClicked', pin);
 });
 
@@ -204,12 +204,12 @@ io.on('connection', function(socket){
     calendar.getEvents(setCalendarPage);
   });
   socket.on('temperatureIndoor', function(msg){
-    sensor.readC(indoorTempId, 2, (err, temp) => {
+    sensor.readC(indoorTempId, 1, (err, temp) => {
       io.emit('tempIn', err ? err : temp);
     });
   });
   socket.on('temperatureOutdoor', function(msg){
-    sensor.readC(outdoorTempId, 2, (err, temp) => {
+    sensor.readC(outdoorTempId, 1, (err, temp) => {
       io.emit('tempOut', err ? err : temp);
     });
   });
