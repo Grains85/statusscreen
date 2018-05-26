@@ -26,6 +26,7 @@ const outdoorTempId = '28-0517a195f0ff';
 // Set mode to indexes
 var gpio = require("rpi-gpio");
 gpio.setMode(gpio.MODE_BCM);
+gpio.setup(13, gpio.DIR_IN);
 
 
 //var session = require('express-session');
