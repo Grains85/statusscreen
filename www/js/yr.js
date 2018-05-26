@@ -1,3 +1,4 @@
+/**
 var socket = io();
 
 socket.on('weather', function(msg){

@@ -9,7 +9,7 @@ var url = require('url');
 var checkMimeType = false;
 var calendar = require('./node/calendar');
 var flickr = require('./node/flickr');
-var yr = require('./node/yr');
+//var yr = require('./node/yr');
 var evernote = require('./node/evernote');
 
 var app = require('express')();
@@ -18,10 +18,15 @@ var io = require('socket.io')(http);
 
 const sortMap = require('sort-map')
 
+const sensor = require('ds18b20-raspi');
+
+const indoorTempId = '28-0416a46a2aff';
+const outdoorTempId = '28-0517a195f0ff';
 
 // Set mode to indexes
 var gpio = require("rpi-gpio");
 gpio.setMode(gpio.MODE_BCM);
+
 
 //var session = require('express-session');
 // create an instance of the rpio-gpio-buttons object with pins 11 and 13
@@ -31,7 +36,6 @@ var buttons = require('rpi-gpio-buttons')([13]);
 buttons.on('clicked', function (pin) {
   io.emit('buttonClicked', pin);
 });
-
 
 
 //console.log("Starting web server at " + serverUrl + ":" + port);
@@ -198,9 +202,25 @@ io.on('connection', function(socket){
     //console.log("Calendar refresh!!!!");
     calendar.getEvents(setCalendarPage);
   });
+  socket.on('temperatureIndoor', function(msg){
+    sensor.readC(indoorTempId, 2, (err, temp) => {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(temp);
+        }
+    });
+  });
+  socket.on('temperatureOutdoor', function(msg){
+    sensor.readC(outdoorTempId, 2, (err, temp) => {
+      io.emit('tempOut', err ? err : temp);
+    });
+  });
+  /**
   socket.on('weatherRefresh', function(msg){
     yr.getWeather(setWeatherPage);
   });
+  */
   /**
   socket.on('evernoteRefresh', function(msg){
     console.log("Evernote refresh!!!!");
