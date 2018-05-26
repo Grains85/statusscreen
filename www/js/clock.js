@@ -17,7 +17,7 @@ function startTime() {
     weekday[3] = "Onsdag";
     weekday[4] = "Torsdag";
     weekday[5] = "Fredag";
-    weekday[6] = "Söndag";
+    weekday[6] = "Lördag";
     var day = weekday[today.getDay()];
 
     var monthArr = new Array(12);
