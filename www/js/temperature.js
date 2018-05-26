@@ -1,11 +1,11 @@
 var socket = io();
 
 socket.on('tempOut', function(msg){
-    document.getElementById("tempOut").innerHTML = "Ute: "+msg+"°C";
+    document.getElementById("temp_out").innerHTML = "Ute: "+msg+"°C";
 });
 
 socket.on('tempIn', function(msg){
-    document.getElementById("tempIn").innerHTML = "Inne: "+msg+"°C";
+    document.getElementById("temp_in").innerHTML = "Inne: "+msg+"°C";
 });
 
 function reloadTemperature(){

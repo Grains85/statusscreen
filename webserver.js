@@ -204,11 +204,7 @@ io.on('connection', function(socket){
   });
   socket.on('temperatureIndoor', function(msg){
     sensor.readC(indoorTempId, 2, (err, temp) => {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(temp);
-        }
+      io.emit('tempIn', err ? err : temp);
     });
   });
   socket.on('temperatureOutdoor', function(msg){
