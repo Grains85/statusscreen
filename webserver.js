@@ -165,7 +165,7 @@ app.get('*', function(req, res){
   //console.log("====================");
   //console.log(filename);
   if (filename == '/') {
-      filename = "/index.html";
+      filename = "/index2.html";
   }
   //if(filename.indexOf("evernote.js") > -1){
   //  initEvernote(req,res);
