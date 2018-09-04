@@ -63,7 +63,7 @@ function reloadFlickr(){
 document.addEventListener('DOMContentLoaded', function() {
     reloadFlickr();
     //setInterval(reloadFlickr, 30*60*1000);
-    setInterval(reloadFlickr, 24*60*60*1000);
+    //setInterval(reloadFlickr, 24*60*60*1000); // Sidan laddas om dygnsvis redan
     setInterval(rotateImages, 10*1000);
     //setInterval(reloadFlickr, 10*1000);
 });
