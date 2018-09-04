@@ -4,6 +4,7 @@ var Flickr = require("flickrapi");
 
 module.exports = {
     getImage: function(callback, date) {
+      console.log("getImages() "+ date);
 
         fs.readFile('www/config/config.json', (err, settings) => {
             if (err) return console.log('Flickr: Error loading config file:', err);
@@ -47,8 +48,20 @@ module.exports = {
                     }
 
                     var photos = result.photos;
-                    //console.log("Total photos: " + photos.total);
+                    console.log("Total photos: " + photos.total + "("+date+")");
                     if (photos.total > 0) {
+
+                      // RETURN ALL IMAGES
+                      var result = [];
+                      for(var i=0; i<photos.total; i++){
+                        var photo = photos.photo[i];
+                        var url = "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + "_z.jpg";
+                        result[i] = url;
+                      }
+                      callback(result, photo.datetaken);
+
+                      // RETURN ONE RANDOM IMAGE
+                      /**
                         var index = Math.floor(Math.random() * (Math.min(photos.total, 100)));
                         //console.log("index: " + index);
                         var photo = photos.photo[index];
@@ -60,6 +73,7 @@ module.exports = {
 
                         callback(url, photo.datetaken);
                         //debugger;
+                      */
                     } else {
                         console.log("Flickr: No photos found..."+date.getFullYear());
                         callback(date,undefined);

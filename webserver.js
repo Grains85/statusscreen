@@ -24,6 +24,7 @@ const outdoorTempId = '28-0416a46a2aff';
 const indoorTempId = '28-0517a195f0ff';
 
 // Set mode to indexes
+/**
 var gpio = require("rpi-gpio");
 gpio.setMode(gpio.MODE_BCM);
 gpio.setup(27, gpio.DIR_IN);
@@ -37,6 +38,7 @@ buttons.on('clicked', function (pin) {
 buttons.on('pressed', function (pin) {
   io.emit('buttonClicked', pin);
 });
+*/
 
 
 //console.log("Starting web server at " + serverUrl + ":" + port);
@@ -73,7 +75,7 @@ function setFlickrPage(contentOrDate, date_taken) {
       flickrRetryCount = 8;
     }
   }
-  else{ // OK
+  else{ // One image
     var content = contentOrDate;
     content = "<img id='flickrImg' src='"+content+"' alt='"+date_taken+"'>";
     io.emit('flickr', content);
@@ -81,6 +83,21 @@ function setFlickrPage(contentOrDate, date_taken) {
     // Restore retry values
     dynamicFlickrYears = flickrYears.slice();
     flickrRetryCount = 8;
+  }
+}
+
+function setFlickrPageMany(contentOrDate, date_taken) {
+
+  // If failed
+  if(contentOrDate instanceof Date){
+    // ....
+  }
+  else{ // Result
+    var array = contentOrDate;
+    array.unshift(date_taken); // append to begining
+    console.log("SENDING array size: "+array.length);
+    //content = "<img id='flickrImg' src='"+content+"' alt='"+date_taken+"'>";
+    io.emit('flickr', array);
   }
 }
 
@@ -196,8 +213,13 @@ http.listen(port, function(){
 
 io.on('connection', function(socket){
   socket.on('flickrRefresh', function(msg){
-    //console.log("Flickr refresh!!!!");
-    flickr.getImage(setFlickrPage, getFlickrDate());
+    console.log("Flickr refresh!!!!");
+
+    for(var i=0; i<flickrYears.length; i++){
+      console.log("i: "+i);
+      var date = getFlickrDate(flickrYears[i]);
+      flickr.getImage(setFlickrPageMany, date);
+    }
   });
   socket.on('calendarRefresh1', function(msg){
     //console.log("Calendar refresh!!!!");
@@ -291,7 +313,7 @@ function getHtmlPage(text) {
 }
 */
 
-function getFlickrDate(){
+function getAFlickrDate(){
   var randomIndex = Math.floor(Math.random() * dynamicFlickrYears.length);
   var randomYear = dynamicFlickrYears[randomIndex];
   var date = new Date();
@@ -305,6 +327,20 @@ function getFlickrDate(){
 
   // Remove year just taken
   dynamicFlickrYears.splice(randomIndex, 1);
+
+  //console.log("getFlickrDate: "+date);
+  return date;
+}
+
+function getFlickrDate(year){
+  var date = new Date();
+  date.setHours(0);
+  date.setMinutes(0);
+  date.setSeconds(0);
+  date.setMilliseconds(0);
+
+  //date.setFullYear(date.getFullYear() + yearOffset);
+  date.setFullYear(year);
 
   //console.log("getFlickrDate: "+date);
   return date;

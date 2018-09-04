@@ -1,0 +1,59 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Stigert</title>
+	<link rel="stylesheet" type="text/css" href="css/flex.css"/>
+	<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="js/clock.js"></script>
+	<script src="js/flickr.js"></script>
+	<script src="js/calendar.js"></script>
+	<script src="js/temperature.js"></script>
+</head>
+<body>
+
+<!--
+	<div id="overlay">
+		<video id="babblarna" width="100%" height="100%">
+	  	<source src="Babblarna.mp4" type="video/mp4">
+				Your browser does not support the video tag.
+		</video>
+	</div>
+-->
+	<div id="statusBar" class="statusBar"></div>
+	<!--<div class="left" id="left">-->
+
+	<ul id="container" class="flex-container">
+	</ul>
+
+<!--
+	<div class="flickr" id="flickr">
+		<div class="date_taken" id="date_taken"/>
+	</div>
+
+	<div class="flickr" id="flickr_text">TEST
+	</div>
+	-->
+
+
+	<li id="flex-item-clock" class='flex-item'>
+<!--	<div class="centerDiv">-->
+		<div class="clock" id="clock"></div>
+		<div class="day" id="day"></div>
+		<div class="day" id="year"></div>
+		<div id="temp_in" class="weather"></div>
+		<div id="temp_out" class="weather"></div>
+
+
+	<!--</div>-->
+	</li>
+
+
+
+	<li id="flex-item-calendar" class='flex-item'>
+		<div id="calendar"></div>
+	</li>
+
+
+</body>
+</html>
