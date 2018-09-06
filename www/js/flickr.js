@@ -20,7 +20,10 @@ socket.on('flickr', function(msg){
 });
 
 function rotateImages(){
+
+  document.getElementById("statusBar").style.display = "block";
   if(map.size === 0){
+    document.getElementById("statusBar").innerHTML = "No map..."+counter;
     return;
   }
   document.getElementById("container").innerHTML = "";
@@ -33,13 +36,23 @@ function rotateImages(){
     var year = date.split("-")[0];
 
     var li = document.createElement("li");
-    li.className = "flex-item";
     li.style = "order: "+year;
 
     var img = document.createElement("img");
-    img.className = "flex-item-standing";
+
     var index = counter%images.length;
     img.src = images[index];
+
+
+    var isStanding = img.height > img.width;
+    if(isStanding){
+      li.className = "flex-item-standing";
+      img.className = "img-size-standing";
+    }
+    else{
+      li.className = "flex-item-laying";
+      img.className = "img-size-laying";
+    }
 
     var progress = document.createElement("div");
     progress.id = "myProgress";
@@ -48,18 +61,24 @@ function rotateImages(){
     progress.appendChild(bar);
     //progress.style = "border-style: solid;";
 
+    var slideNr = document.createElement("div");
+    slideNr.innerHTML = (index+1) + "/"+images.length;
+    slideNr.className = "slideNr";
+
     var text = document.createElement("div");
     text.innerHTML = year;
-    text.style = "margin-top: -40px;";
+    text.style = "margin-top: -20px;";
 
     var main = document.createElement("div");
     //main.className = "flex-item-standing";
     main.appendChild(img);
     main.appendChild(progress);
+    main.appendChild(slideNr);
     main.appendChild(text);
 
     li.appendChild(main);
 
+    document.getElementById("statusBar").innerHTML = "Appening image: "+year+", "+counter;
     document.getElementById("container").appendChild(li);
 //debugger;
     if(images.length > 1){
@@ -75,10 +94,6 @@ function rotateImages(){
     counter++;
   }
   //move();
-}
-
-function getImageWithProg(images, counter){
-
 }
 
 // Update date

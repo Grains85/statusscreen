@@ -15,26 +15,45 @@
   justify-content: space-around;
 }
 
-.flex-item {
+.flex-item-standing {
   background-color:rgba(0, 0, 0, 0.5);
   padding: 5px;
   width: 300px;
   height: 600px;
   margin-top: 10px;
 
-  line-height: 150px;
+  aline-height: 150px;
   color: white;
   font-weight: bold;
   font-size: 3em;
   text-align: center;
 }
 
-.flex-item-standing {
+.flex-item-laying {
+  background-color:rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  width: 550px;
+  height: 350px;
+  margin-top: 10px;
+
+  aline-height: 150px;
+  color: white;
+  font-weight: bold;
+  font-size: 3em;
+  text-align: center;
+}
+
+.img-size-standing {
   width: 95%;
 }
 
-.flex-item-laying {
-  width: 100%;
+.img-size-laying {
+  height: 80%;
+}
+
+.slideNr {
+  font-size: 30px;
+  text-align: right;
 }
 
 .flex-clock {
