@@ -21,9 +21,9 @@ socket.on('flickr', function(msg){
 
 function rotateImages(){
 
-  document.getElementById("statusBar").style.display = "block";
+  //document.getElementById("statusBar").style.display = "block";
   if(map.size === 0){
-    document.getElementById("statusBar").innerHTML = "No map..."+counter;
+    //document.getElementById("statusBar").innerHTML = "No map..."+counter;
     return;
   }
   document.getElementById("container").innerHTML = "";
@@ -78,7 +78,7 @@ function rotateImages(){
 
     li.appendChild(main);
 
-    document.getElementById("statusBar").innerHTML = "Appening image: "+year+", "+counter;
+    //document.getElementById("statusBar").innerHTML = "Appening image: "+year+", "+counter;
     document.getElementById("container").appendChild(li);
 //debugger;
     if(images.length > 1){
