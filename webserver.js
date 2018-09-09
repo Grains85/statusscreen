@@ -159,6 +159,18 @@ app.use(session({
     saveUninitialized: true
   }));
   */
+
+  app.get('/temperatureIndoor', function (req, res) {
+    sensor.readC(indoorTempId, 1, (err, temp) => {
+      if(err){
+        res.send('{ error: '+err+'}');
+      }
+      else{
+        res.send('{ temperature: '+temp+'}');
+      }
+    });
+  });
+
 app.get('*', function(req, res){
   var request = req;
   var filename = req.url;

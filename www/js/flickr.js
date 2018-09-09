@@ -8,8 +8,15 @@ socket.on('flickr', function(msg){
     //document.getElementById("flickr").innerHTML = msg;
     //document.getElementById("flickr_text").innerHTML = msg;
 
+    document.getElementById("statusBar").style.display = "block";
+
+
+    document.getElementById("statusBar").innerHTML = "socketio!: "+date_taken;
+
     var date_taken = msg.shift();
     map.set(date_taken, msg);
+
+
 
     //addImages();
 
@@ -21,9 +28,9 @@ socket.on('flickr', function(msg){
 
 function rotateImages(){
 
-  //document.getElementById("statusBar").style.display = "block";
+  document.getElementById("statusBar").style.display = "block";
   if(map.size === 0){
-    //document.getElementById("statusBar").innerHTML = "No map..."+counter;
+  //  document.getElementById("statusBar").innerHTML = "No map..."+counter;
     return;
   }
   document.getElementById("container").innerHTML = "";
@@ -117,7 +124,10 @@ function move(bar) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    reloadFlickr();
+
+    // Make sure page is set up before server is sending a response!
+    setTimeout(reloadFlickr, 5*1000);
+
     //setInterval(reloadFlickr, 30*60*1000);
     //setInterval(reloadFlickr, 24*60*60*1000); // Sidan laddas om dygnsvis redan
     setInterval(rotateImages, 10*1000);
