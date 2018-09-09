@@ -8,10 +8,8 @@ socket.on('flickr', function(msg){
     //document.getElementById("flickr").innerHTML = msg;
     //document.getElementById("flickr_text").innerHTML = msg;
 
-    document.getElementById("statusBar").style.display = "block";
-
-
-    document.getElementById("statusBar").innerHTML = "socketio!: "+date_taken;
+//document.getElementById("statusBar").style.display = "block";
+document.getElementById("statusBar").innerHTML = "Images received; "+msg;
 
     var date_taken = msg.shift();
     map.set(date_taken, msg);
@@ -30,9 +28,13 @@ function rotateImages(){
 
   document.getElementById("statusBar").style.display = "block";
   if(map.size === 0){
-  //  document.getElementById("statusBar").innerHTML = "No map..."+counter;
+    document.getElementById("statusBar").innerHTML = "No map..."+counter;
+    counter++;
     return;
   }
+
+  document.getElementById("statusBar").style.display = "none";
+
   document.getElementById("container").innerHTML = "";
 
   //document.getElementById("container").innerHTML = "";
@@ -85,7 +87,7 @@ function rotateImages(){
 
     li.appendChild(main);
 
-    //document.getElementById("statusBar").innerHTML = "Appening image: "+year+", "+counter;
+  //  document.getElementById("statusBar").innerHTML = "Appening image: "+year+", "+counter;
     document.getElementById("container").appendChild(li);
 //debugger;
     if(images.length > 1){
@@ -107,6 +109,8 @@ function rotateImages(){
 function reloadFlickr(){
   map.clear();
   socket.emit('flickrRefresh', '');
+document.getElementById("statusBar").style.display = "block";
+document.getElementById("statusBar").innerHTML = "flickr images requested..";
 }
 
 function move(bar) {
@@ -124,12 +128,10 @@ function move(bar) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-
-    // Make sure page is set up before server is sending a response!
-    setTimeout(reloadFlickr, 5*1000);
-
-    //setInterval(reloadFlickr, 30*60*1000);
+    reloadFlickr();
+//setInterval(reloadFlickr, 30*60*1000);
     //setInterval(reloadFlickr, 24*60*60*1000); // Sidan laddas om dygnsvis redan
     setInterval(rotateImages, 10*1000);
-    //setInterval(reloadFlickr, 10*1000);
+//setTimeout(reloadFlickr, 10*1000);
+//setInterval(reloadFlickr, 10*1000);
 });
